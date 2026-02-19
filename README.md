@@ -8,7 +8,7 @@
 
   <h1>✅ MERN 3-Tier Architecture on AWS</h1>
   <p>
-    Deployed a production-ready <strong>MERN stack application</strong> using <strong>3-Tier Architecture</strong> on <strong>AWS EC2</strong> with <strong>Auto Scaling</strong>, <strong>Load Balancing</strong>, <strong>RDS</strong>, and <strong>CloudWatch monitoring</strong>.
+    Working on a production-ready <strong>MERN stack application</strong> using <strong>3-Tier Architecture</strong> on <strong>AWS EC2</strong> with <strong>Auto Scaling</strong>, <strong>Load Balancing</strong>, <strong>RDS</strong>, and <strong>CloudWatch monitoring</strong>.
     Frontend served via <strong>React + ALB</strong>, backend on <strong>Node.js/Express EC2 instances</strong> in private subnets, and database in <strong>isolated RDS</strong>.
   </p>
 
@@ -75,7 +75,7 @@
     <li>ALB: Public DNS accessible</li>
     <li>RDS: Private subnet only</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ Secure 3-tier network infrastructure</p>
+  <p><strong>Pending:</strong> ⏳ Secure 3-tier network infrastructure</p>
 
   <h3>🖥 PHASE 3 – EC2 Backend Deployment</h3>
   <p><strong>Objective:</strong> Deploy Node.js backend on EC2 private instances.</p>
@@ -86,7 +86,7 @@
     <li><code>npm install &amp;&amp; npm run build</code></li>
     <li>PM2 process manager: <code>pm2 start server.js</code></li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ Backend running on port 5000 internally</p>
+  <p><strong>Pending:</strong> ⏳ Backend running on port 5000 internally</p>
 
   <h3>🗄 PHASE 4 – Database Setup</h3>
   <p><strong>Objective:</strong> Deploy secure, private database layer.</p>
@@ -97,7 +97,7 @@
     <li>Database encryption enabled</li>
     <li>Application connects successfully</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ Private database with zero public access</p>
+  <p><strong>Pending:</strong> ⏳ Private database with zero public access</p>
 
   <h3>⚖ PHASE 5 – Application Load Balancer</h3>
   <p><strong>Objective:</strong> Implement high availability with ALB.</p>
@@ -108,7 +108,7 @@
     <li>Health checks configured</li>
     <li>HTTPS listener with SSL</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ ALB DNS accessible: <code>alb-dns-name.region.elb.amazonaws.com</code></p>
+  <p><strong>Pending:</strong> ⏳ ALB DNS accessible: <code>alb-dns-name.region.elb.amazonaws.com</code></p>
 
   <h3>📈 PHASE 6 – Auto Scaling Group</h3>
   <p><strong>Objective:</strong> Production-ready auto scaling & high availability.</p>
@@ -119,7 +119,7 @@
     <li>CPU scaling policy (60% threshold)</li>
     <li>Multiple EC2 instances running</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ Auto scaling demonstrated with load testing</p>
+  <p><strong>Pending:</strong> ⏳ Auto scaling demonstrated with load testing</p>
 
   <h3>📊 PHASE 7 – CloudWatch Monitoring</h3>
   <p><strong>Objective:</strong> Enterprise-grade monitoring & alerting.</p>
@@ -130,7 +130,7 @@
     <li>Application logs streamed</li>
     <li>SNS notifications configured</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ Real-time monitoring with proactive alerts</p>
+  <p><strong>Pending:</strong> ⏳ Real-time monitoring with proactive alerts</p>
 
   <h3>💾 PHASE 8 – S3 Static Storage</h3>
   <p><strong>Objective:</strong> Scalable file storage integration.</p>
@@ -141,7 +141,7 @@
     <li>S3 URLs stored in database</li>
     <li>IAM roles for secure access</li>
   </ul>
-  <p><strong>Deliverable:</strong> ✅ S3 integration for images/documents</p>
+  <p><strong>Pending:</strong> ⏳ S3 integration for images/documents</p>
 
   <hr>
 
@@ -214,43 +214,43 @@
         <td><strong>Phase 2</strong></td>
         <td>VPC Network</td>
         <td>VPC, Subnets, SG</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 3</strong></td>
         <td>EC2 Backend</td>
         <td>EC2, PM2</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 4</strong></td>
         <td>RDS Database</td>
         <td>RDS</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 5</strong></td>
         <td>Load Balancer</td>
         <td>ALB</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 6</strong></td>
         <td>Auto Scaling</td>
         <td>ASG, Launch Template</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 7</strong></td>
         <td>Monitoring</td>
         <td>CloudWatch</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
       <tr>
         <td><strong>Phase 8</strong></td>
         <td>S3 Storage</td>
         <td>S3</td>
-        <td>✅ Complete</td>
+        <td>⏳ Pending</td>
       </tr>
     </tbody>
   </table>
