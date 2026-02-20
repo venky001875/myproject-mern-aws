@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Routes, Route, Link } from "react-router-dom";
+import GoalsPage from "./GoalsPage";
+import { motion } from "framer-motion";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
+  const [showGoals, setShowGoals] = useState(false);
 
   const API = "http://localhost:5000/api/tasks";
 
@@ -43,43 +47,40 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
-      <h2>Task Manager 🚀</h2>
+  <Routes>
+    
+    <Route
+  path="/"
+  element={
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 50 }}
+      transition={{ duration: 0.5 }}
+      className="container"
+    >
+      <h1 className="title">SET YOUR GOALS</h1>
 
-      <form onSubmit={addTask}>
+      <form onSubmit={addTask} className="form">
         <input
           type="text"
-          placeholder="Enter task..."
+          placeholder="Enter your goal..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button type="submit">Add</button>
+        <button type="submit">Add Goal</button>
       </form>
 
-      <ul>
-        {tasks.map((task) => (
-          <li key={task._id} style={{ marginTop: "10px" }}>
-            <span
-              onClick={() => toggleComplete(task)}
-              style={{
-                cursor: "pointer",
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
-            >
-              {task.title}
-            </span>
+      <Link to="/goals">
+        <button className="view-btn">
+          VIEW GOALS ({tasks.length})
+        </button>
+      </Link>
+    </motion.div>
+  }
+/>
+  </Routes>
+);
 
-            <button
-              onClick={() => deleteTask(task._id)}
-              style={{ marginLeft: "10px" }}
-            >
-              ❌
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 }
-
 export default App;
