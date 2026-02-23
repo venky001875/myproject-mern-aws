@@ -48,37 +48,49 @@ function App() {
 
   return (
   <Routes>
-    
+
     <Route
-  path="/"
-  element={
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 50 }}
-      transition={{ duration: 0.5 }}
-      className="container"
-    >
-      <h1 className="title">SET YOUR GOALS</h1>
+      path="/"
+      element={
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 50 }}
+          transition={{ duration: 0.5 }}
+          className="container"
+        >
+          <h1 className="title">SET YOUR GOALS</h1>
 
-      <form onSubmit={addTask} className="form">
-        <input
-          type="text"
-          placeholder="Enter your goal..."
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          <form onSubmit={addTask} className="form">
+            <input
+              type="text"
+              placeholder="Enter your goal..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <button type="submit">Add Goal</button>
+          </form>
+
+          <Link to="/goals">
+            <button className="view-btn">
+              VIEW GOALS ({tasks.length})
+            </button>
+          </Link>
+        </motion.div>
+      }
+    />
+
+    <Route
+      path="/goals"
+      element={
+        <GoalsPage
+          tasks={tasks}
+          toggleComplete={toggleComplete}
+          deleteTask={deleteTask}
         />
-        <button type="submit">Add Goal</button>
-      </form>
+      }
+    />
 
-      <Link to="/goals">
-        <button className="view-btn">
-          VIEW GOALS ({tasks.length})
-        </button>
-      </Link>
-    </motion.div>
-  }
-/>
   </Routes>
 );
 
