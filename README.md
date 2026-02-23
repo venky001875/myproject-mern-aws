@@ -75,7 +75,7 @@
     <li>ALB: Public DNS accessible</li>
     <li>RDS: Private subnet only</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Secure 3-tier network infrastructure</p>
+  <p><strong>Complete:</strong> ✅ Secure 3-tier network infrastructure</p>
 
   <h3>🖥 PHASE 3 – EC2 Backend Deployment</h3>
   <p><strong>Objective:</strong> Deploy Node.js backend on EC2 private instances.</p>
