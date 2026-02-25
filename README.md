@@ -8,8 +8,8 @@
 
   <h1>✅ MERN 3-Tier Architecture on AWS</h1>
   <p>
-    Working on a production-ready <strong>MERN stack application</strong> using <strong>3-Tier Architecture</strong> on <strong>AWS EC2</strong> with <strong>Auto Scaling</strong>, <strong>Load Balancing</strong>, <strong>RDS</strong>, and <strong>CloudWatch monitoring</strong>.
-    Frontend served via <strong>React + ALB</strong>, backend on <strong>Node.js/Express EC2 instances</strong> in private subnets, and database in <strong>isolated RDS</strong>.
+    Working on a production-ready <strong>MERN stack application</strong> using <strong>3-Tier Architecture</strong> on <strong>AWS EC2</strong> with <strong>Auto Scaling</strong>, <strong>Load Balancing</strong>, <strong>Self-Managed MongoDB</strong>, and <strong>CloudWatch monitoring</strong>.
+    Frontend served via <strong>React + ALB</strong>, backend on <strong>Node.js/Express EC2 instances</strong> in private subnets, and database hosted on a <strong>dedicated MongoDB EC2 instance in a private subnet</strong>.
   </p>
 
   <hr>
@@ -37,14 +37,14 @@
         <td><strong>🟡 Tier 2</strong></td>
         <td>Application</td>
         <td>Node.js + Express</td>
-        <td>EC2 Instances</td>
+        <td>EC2 Instances (Auto Scaling)</td>
         <td>Private Subnet</td>
       </tr>
       <tr>
         <td><strong>🔵 Tier 3</strong></td>
         <td>Database</td>
-        <td>MySQL/PostgreSQL</td>
-        <td>Amazon RDS</td>
+        <td>MongoDB (Self-Managed)</td>
+        <td>EC2 Instance</td>
         <td>Private Subnet</td>
       </tr>
     </tbody>
@@ -59,7 +59,7 @@
   <ul>
     <li>React frontend with routing and components</li>
     <li>Node.js + Express backend APIs</li>
-    <li>Database connection (MongoDB/MySQL)</li>
+    <li>Database connection (MongoDB using MongoDB Compass locally)</li>
     <li>API testing with Postman</li>
     <li>Local deployment: <code>http://localhost:3000</code></li>
   </ul>
@@ -71,9 +71,9 @@
     <li>Amazon VPC with public/private subnets</li>
     <li>Internet Gateway, NAT Gateway, Route Tables</li>
     <li>Security Groups for tier isolation</li>
-    <li>EC2: No public IP assigned</li>
+    <li>Backend EC2: No public IP assigned</li>
+    <li>MongoDB EC2: No public IP assigned</li>
     <li>ALB: Public DNS accessible</li>
-    <li>RDS: Private subnet only</li>
   </ul>
   <p><strong>Complete:</strong> ✅ Secure 3-tier network infrastructure</p>
 
@@ -85,19 +85,22 @@
     <li>Git clone repository</li>
     <li><code>npm install &amp;&amp; npm run build</code></li>
     <li>PM2 process manager: <code>pm2 start server.js</code></li>
+    <li>Backend configured to connect to MongoDB private IP (port 27017)</li>
   </ul>
   <p><strong>Pending:</strong> ⏳ Backend running on port 5000 internally</p>
 
   <h3>🗄 PHASE 4 – Database Setup</h3>
-  <p><strong>Objective:</strong> Deploy secure, private database layer.</p>
+  <p><strong>Objective:</strong> Deploy secure, private MongoDB database layer.</p>
   <ul>
-    <li>Option A: Amazon RDS (MySQL/PostgreSQL) in private subnet</li>
-    <li>Option B: MongoDB Atlas with VPC peering</li>
-    <li>Security Group: EC2 only access</li>
-    <li>Database encryption enabled</li>
-    <li>Application connects successfully</li>
+    <li>Launch separate EC2 instance in private subnet</li>
+    <li>Install MongoDB Community Edition</li>
+    <li>Bind MongoDB to private IP</li>
+    <li>Enable authentication (username/password)</li>
+    <li>Security Group: Allow port 27017 from Backend EC2 Security Group only</li>
+    <li>EBS encryption enabled</li>
+    <li>No public IP assigned</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Private database with zero public access</p>
+  <p><strong>Pending:</strong> ⏳ Private MongoDB EC2 with zero public access</p>
 
   <h3>⚖ PHASE 5 – Application Load Balancer</h3>
   <p><strong>Objective:</strong> Implement high availability with ALB.</p>
@@ -111,37 +114,28 @@
   <p><strong>Pending:</strong> ⏳ ALB DNS accessible: <code>alb-dns-name.region.elb.amazonaws.com</code></p>
 
   <h3>📈 PHASE 6 – Auto Scaling Group</h3>
-  <p><strong>Objective:</strong> Production-ready auto scaling & high availability.</p>
   <ul>
     <li>Launch Template with AMI & user data</li>
     <li>Auto Scaling Group (min 2, max 4)</li>
     <li>Attached to ALB target group</li>
     <li>CPU scaling policy (60% threshold)</li>
-    <li>Multiple EC2 instances running</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Auto scaling demonstrated with load testing</p>
 
   <h3>📊 PHASE 7 – CloudWatch Monitoring</h3>
-  <p><strong>Objective:</strong> Enterprise-grade monitoring & alerting.</p>
   <ul>
     <li>CloudWatch metrics: CPU, Memory, Network</li>
     <li>Custom dashboards created</li>
     <li>Alarms for high CPU (>80%)</li>
-    <li>Application logs streamed</li>
     <li>SNS notifications configured</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Real-time monitoring with proactive alerts</p>
 
   <h3>💾 PHASE 8 – S3 Static Storage</h3>
-  <p><strong>Objective:</strong> Scalable file storage integration.</p>
   <ul>
     <li>Amazon S3 bucket creation</li>
-    <li>Static website hosting (optional)</li>
     <li>Backend integration for uploads</li>
-    <li>S3 URLs stored in database</li>
+    <li>S3 URLs stored in MongoDB</li>
     <li>IAM roles for secure access</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ S3 integration for images/documents</p>
 
   <hr>
 
@@ -152,108 +146,28 @@
         v
   ┌─────────────────────────────────────┐
   │        Application Load Balancer     │ ← Public Subnet
-  │         (Public DNS)                 │
   └─────────────────┬───────────────────┘
                     | HTTP (5000)
                     v
   ┌─────────────────────────────────────┐
-  │           EC2 Auto Scaling          │ ← Private Subnet
-  │     Node.js + Express Backend       │
-  │        PM2 Process Manager          │
+  │      EC2 Auto Scaling (Backend)     │ ← Private Subnet
+  │     Node.js + Express + PM2         │
   └─────────────────┬───────────────────┘
-                    | DB Connection
+                    | MongoDB (27017)
                     v
   ┌─────────────────────────────────────┐
-  │         Amazon RDS Database         │ ← Private Subnet
-  │       MySQL / PostgreSQL            │
-  │      (No Public Access)             │
+  │     MongoDB EC2 Instance            │ ← Private Subnet
+  │   (Authentication Enabled)          │
+  │      No Public Access               │
   └─────────────────────────────────────┘
                     ^
                     |
   ┌─────────────────────────────────────┐
   │         Amazon S3 (Optional)        │
-  │       Static Files Storage          │
   └─────────────────────────────────────┘
 
   📊 CloudWatch Monitoring → All Layers
-  🔒 Security Groups → Tier Isolation</pre>
-
-  <hr>
-
-  <h2>✅ Interview Demo Checklist</h2>
-  <ul>
-    <li><strong>Architecture Diagram:</strong> Draw 3-tier flow (User → ALB → EC2 → RDS)</li>
-    <li><strong>ALB Access:</strong> Show public DNS working</li>
-    <li><strong>Multiple EC2:</strong> Demonstrate 2+ instances in ASG</li>
-    <li><strong>Auto Scaling:</strong> Trigger scaling with stress test</li>
-    <li><strong>RDS Security:</strong> Prove private subnet access only</li>
-    <li><strong>CloudWatch:</strong> Show live metrics & alarms</li>
-    <li><strong>Security:</strong> Explain zero public IPs except ALB</li>
-  </ul>
-
-  <hr>
-
-  <h2>📊 Implementation Status</h2>
-  <table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Phase</th>
-        <th>Component</th>
-        <th>AWS Services</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Phase 1</strong></td>
-        <td>MERN Development</td>
-        <td>Local</td>
-        <td>✅ Complete</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 2</strong></td>
-        <td>VPC Network</td>
-        <td>VPC, Subnets, SG</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 3</strong></td>
-        <td>EC2 Backend</td>
-        <td>EC2, PM2</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 4</strong></td>
-        <td>RDS Database</td>
-        <td>RDS</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 5</strong></td>
-        <td>Load Balancer</td>
-        <td>ALB</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 6</strong></td>
-        <td>Auto Scaling</td>
-        <td>ASG, Launch Template</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 7</strong></td>
-        <td>Monitoring</td>
-        <td>CloudWatch</td>
-        <td>⏳ Pending</td>
-      </tr>
-      <tr>
-        <td><strong>Phase 8</strong></td>
-        <td>S3 Storage</td>
-        <td>S3</td>
-        <td>⏳ Pending</td>
-      </tr>
-    </tbody>
-  </table>
+  🔒 Security Groups → Strict Tier Isolation</pre>
 
   <hr>
 
@@ -261,10 +175,10 @@
   <ul>
     <li><strong>Frontend:</strong> React, HTML5, CSS3, JavaScript</li>
     <li><strong>Backend:</strong> Node.js, Express.js, PM2</li>
-    <li><strong>Database:</strong> MySQL/PostgreSQL (RDS), MongoDB</li>
+    <li><strong>Database:</strong> MongoDB (Self-Managed on EC2)</li>
     <li><strong>Compute:</strong> EC2 (t3.micro), Auto Scaling Group</li>
     <li><strong>Networking:</strong> ALB, VPC, Public/Private Subnets, NAT Gateway</li>
-    <li><strong>Storage:</strong> Amazon RDS, Amazon S3</li>
+    <li><strong>Storage:</strong> Amazon S3, EBS</li>
     <li><strong>Security:</strong> Security Groups, IAM Roles, Private Subnets</li>
     <li><strong>Monitoring:</strong> CloudWatch Metrics, Logs, Alarms</li>
     <li><strong>DevOps:</strong> Git, npm, AWS CLI</li>
@@ -272,7 +186,7 @@
 
   <hr>
 
-  <p><strong>💯 Enterprise-Grade 3-Tier MERN Deployment on AWS</strong></p>
+  <p><strong>💯 Enterprise-Grade 3-Tier MERN Deployment on AWS (Self-Managed MongoDB)</strong></p>
 
 </body>
 </html>
