@@ -9,7 +9,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [showGoals, setShowGoals] = useState(false);
 
-  const API = "http://localhost:5000/api/tasks";
+ const API = "/api";
 
   // Fetch tasks
   const fetchTasks = async () => {

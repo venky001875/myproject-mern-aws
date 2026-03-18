@@ -7,26 +7,36 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
-// 1. Better CORS configuration (Optional but safer)
-app.use(cors()); 
+// ✅ CORS Configuration (FIXED for CloudFront + Browser)
+app.use(cors({
+  origin: "*",   // for now allow all (you can restrict later)
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+// ✅ Handle preflight requests (VERY IMPORTANT)
+app.options("*", cors());
+
 app.use(express.json());
 
-// 2. Updated Mongoose connection (Removes deprecation warnings)
+// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => {
     console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1); // Stop the server if DB fails
+    process.exit(1);
   });
 
-app.use("/api/tasks", taskRoutes);
+// ✅ API Routes
+app.use("/api", taskRoutes);
 
+// ✅ Health Check
 app.get("/", (req, res) => {
-    res.send("Backend Running Successfully on AWS!");
+  res.send("Backend Running Successfully on AWS!");
 });
 
-// 3. IMPORTANT: Bind to 0.0.0.0 for AWS ALB/EC2
+// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Server is globally accessible on port ${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
 });

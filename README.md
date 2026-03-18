@@ -87,7 +87,7 @@
     <li>PM2 process manager: <code>pm2 start server.js</code></li>
     <li>Backend configured to connect to MongoDB private IP (port 27017)</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Backend running on port 5000 internally</p>
+  <p><strong>Complete:</strong> ✅ Backend running on port 5000 internally</p>
 
   <h3>🗄 PHASE 4 – Database Setup</h3>
   <p><strong>Objective:</strong> Deploy secure, private MongoDB database layer.</p>
@@ -100,7 +100,7 @@
     <li>EBS encryption enabled</li>
     <li>No public IP assigned</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ Private MongoDB EC2 with zero public access</p>
+  <p><strong>Complete:</strong> ✅ Private MongoDB EC2 with zero public access</p>
 
   <h3>⚖ PHASE 5 – Application Load Balancer</h3>
   <p><strong>Objective:</strong> Implement high availability with ALB.</p>
@@ -111,7 +111,7 @@
     <li>Health checks configured</li>
     <li>HTTPS listener with SSL</li>
   </ul>
-  <p><strong>Pending:</strong> ⏳ ALB DNS accessible: <code>alb-dns-name.region.elb.amazonaws.com</code></p>
+  <p><strong>Complete:</strong> ✅ ALB DNS accessible: <code>alb-dns-name.region.elb.amazonaws.com</code></p>
 
   <h3>📈 PHASE 6 – Auto Scaling Group</h3>
   <ul>
